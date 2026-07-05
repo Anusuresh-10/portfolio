@@ -16,11 +16,7 @@ export default function App() {
       {!entered && <Intro onEnter={() => setEntered(true)} />}
 
       <div className="canvas-wrap">
-        <Canvas
-          shadows
-          camera={{ position: [0, 10, 15], fov: 45 }}
-          dpr={[1, 1.5]}
-        >
+        <Canvas shadows camera={{ position: [0, 10, 16], fov: 45 }} dpr={[1, 1.5]}>
           <Suspense fallback={null}>
             <Experience zones={zones} activeZone={activeZone} onSelect={setActiveZone} />
           </Suspense>

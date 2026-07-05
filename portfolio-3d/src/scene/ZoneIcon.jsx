@@ -1,106 +1,44 @@
 import { useRef } from "react";
 import { useFrame } from "@react-three/fiber";
 
-/**
- * Simple, low-poly geometric icons built from primitives so no external
- * 3D models / textures are needed. Each icon spins gently.
- */
 export default function ZoneIcon({ id, color }) {
-  const group = useRef();
+  const ref = useRef();
+  useFrame((_, dt) => { if (ref.current) ref.current.rotation.y += dt * 0.7; });
 
-  useFrame((_, delta) => {
-    if (group.current) {
-      group.current.rotation.y += delta * 0.6;
-    }
-  });
+  const mat = <meshStandardMaterial color={color} emissive={color} emissiveIntensity={0.7} roughness={0.25} metalness={0.5} />;
 
-  const material = (
-    <meshStandardMaterial
-      color={color}
-      emissive={color}
-      emissiveIntensity={0.6}
-      roughness={0.3}
-      metalness={0.4}
-    />
+  const shapes = {
+    about: (
+      <group ref={ref}>
+        <mesh position={[0, 0.5, 0]}><sphereGeometry args={[0.3, 16, 16]} />{mat}</mesh>
+        <mesh position={[0, -0.1, 0]}><coneGeometry args={[0.42, 0.75, 16]} />{mat}</mesh>
+      </group>
+    ),
+    skills: (
+      <group ref={ref}>
+        <mesh position={[0, -0.3, 0]}><boxGeometry args={[0.85, 0.28, 0.85]} />{mat}</mesh>
+        <mesh position={[0.12, 0.05, 0.1]}><boxGeometry args={[0.52, 0.28, 0.52]} />{mat}</mesh>
+        <mesh position={[-0.1, 0.38, -0.05]}><boxGeometry args={[0.32, 0.28, 0.32]} />{mat}</mesh>
+      </group>
+    ),
+    projects: (
+      <group ref={ref}>
+        <mesh position={[0, -0.15, 0]}><boxGeometry args={[0.95, 0.5, 0.75]} />{mat}</mesh>
+        <mesh position={[0, 0.3, -0.05]} rotation={[-0.5, 0, 0]}><boxGeometry args={[0.95, 0.07, 0.75]} />{mat}</mesh>
+      </group>
+    ),
+    contact: (
+      <group ref={ref}>
+        <mesh position={[0, -0.22, 0]}><cylinderGeometry args={[0.09, 0.32, 0.65, 8]} />{mat}</mesh>
+        <mesh position={[0, 0.18, 0]} rotation={[Math.PI / 2, 0, 0]}><torusGeometry args={[0.38, 0.05, 8, 24]} />{mat}</mesh>
+        <mesh position={[0, 0.5, 0]}><sphereGeometry args={[0.15, 16, 16]} />{mat}</mesh>
+      </group>
+    ),
+  };
+
+  return shapes[id] || (
+    <group ref={ref}>
+      <mesh><icosahedronGeometry args={[0.48, 0]} />{mat}</mesh>
+    </group>
   );
-
-  switch (id) {
-    case "about":
-      // person silhouette: sphere (head) + cone (body)
-      return (
-        <group ref={group}>
-          <mesh position={[0, 0.55, 0]} castShadow>
-            <sphereGeometry args={[0.32, 16, 16]} />
-            {material}
-          </mesh>
-          <mesh position={[0, -0.05, 0]} castShadow>
-            <coneGeometry args={[0.45, 0.8, 16]} />
-            {material}
-          </mesh>
-        </group>
-      );
-
-    case "skills":
-      // stacked blocks: a little skill-tree / tech stack
-      return (
-        <group ref={group}>
-          <mesh position={[0, -0.3, 0]} castShadow>
-            <boxGeometry args={[0.9, 0.3, 0.9]} />
-            {material}
-          </mesh>
-          <mesh position={[0.15, 0.05, 0.1]} castShadow>
-            <boxGeometry args={[0.55, 0.3, 0.55]} />
-            {material}
-          </mesh>
-          <mesh position={[-0.15, 0.4, -0.05]} castShadow>
-            <boxGeometry args={[0.35, 0.3, 0.35]} />
-            {material}
-          </mesh>
-        </group>
-      );
-
-    case "projects":
-      // open vault / folder: box with a floating lid
-      return (
-        <group ref={group}>
-          <mesh position={[0, -0.15, 0]} castShadow>
-            <boxGeometry args={[1, 0.55, 0.8]} />
-            {material}
-          </mesh>
-          <mesh position={[0, 0.32, -0.05]} rotation={[-0.5, 0, 0]} castShadow>
-            <boxGeometry args={[1, 0.08, 0.8]} />
-            {material}
-          </mesh>
-        </group>
-      );
-
-    case "contact":
-      // beacon: cone base + ring + sphere
-      return (
-        <group ref={group}>
-          <mesh position={[0, -0.25, 0]} castShadow>
-            <cylinderGeometry args={[0.1, 0.35, 0.7, 8]} />
-            {material}
-          </mesh>
-          <mesh position={[0, 0.2, 0]} rotation={[Math.PI / 2, 0, 0]}>
-            <torusGeometry args={[0.4, 0.05, 8, 24]} />
-            {material}
-          </mesh>
-          <mesh position={[0, 0.55, 0]} castShadow>
-            <sphereGeometry args={[0.16, 16, 16]} />
-            {material}
-          </mesh>
-        </group>
-      );
-
-    default:
-      return (
-        <group ref={group}>
-          <mesh castShadow>
-            <icosahedronGeometry args={[0.5, 0]} />
-            {material}
-          </mesh>
-        </group>
-      );
-  }
 }
