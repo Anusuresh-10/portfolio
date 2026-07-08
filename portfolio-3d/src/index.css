@@ -2,7 +2,8 @@
 
 :root {
   --void: #060a12;
-  --panel: rgba(10, 16, 28, 0.75);
+  --void-soft: #0c1322;
+  --panel: rgba(10, 16, 28, 0.78);
   --panel-border: rgba(255, 255, 255, 0.09);
   --text-primary: #e8f1f8;
   --text-dim: #7a8fa8;
@@ -10,10 +11,12 @@
   --accent-violet: #9d7bff;
   --accent-amber: #ffb454;
   --accent-green: #5cf29a;
+  --accent-pink: #ff6b9d;
   --font-display: "Space Grotesk", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "JetBrains Mono", monospace;
   --radius: 14px;
+  --radius-sm: 8px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,3 +34,28 @@ a { color: var(--accent-cyan); text-decoration: none; }
 a:hover { text-decoration: underline; }
 ::-webkit-scrollbar { width: 5px; }
 ::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.12); border-radius: 4px; }
+:focus-visible { outline: 2px solid var(--accent-cyan); outline-offset: 2px; border-radius: 4px; }
+
+/* ── Shared button style ── */
+.btn {
+  font-family: var(--font-mono); font-size: 0.75rem;
+  padding: 9px 18px; border-radius: var(--radius-sm);
+  border: 1px solid var(--panel-border);
+  background: rgba(255,255,255,0.04);
+  color: var(--text-primary);
+  transition: all 0.22s ease;
+  display: inline-flex; align-items: center; gap: 7px;
+  cursor: pointer;
+}
+.btn:hover { border-color: var(--zc, var(--accent-cyan)); color: var(--zc, var(--accent-cyan)); text-decoration: none; }
+.btn.primary {
+  background: var(--zc, var(--accent-cyan));
+  color: #060a12; border-color: transparent; font-weight: 600;
+}
+.btn.primary:hover { filter: brightness(1.12); color: #060a12; }
+
+.tag {
+  font-family: var(--font-mono); font-size: 0.65rem;
+  padding: 3px 9px; border-radius: 6px;
+  background: rgba(255,255,255,0.06); color: var(--text-dim);
+}

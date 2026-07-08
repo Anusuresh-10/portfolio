@@ -1,0 +1,87 @@
+.canvas-wrap { position: fixed; inset: 0; }
+
+.ui-layer {
+  position: fixed; inset: 0; pointer-events: none;
+  display: flex; flex-direction: column;
+  justify-content: space-between; padding: 18px;
+}
+.ui-layer > * { pointer-events: auto; }
+
+/* ── HUD top ── */
+.hud { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+
+.hud-id {
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: var(--radius); padding: 12px 18px;
+  backdrop-filter: blur(18px); max-width: 300px;
+}
+.hud-id .name { font-family: var(--font-display); font-size: 1.08rem; font-weight: 700; }
+.hud-id .role { font-family: var(--font-mono); font-size: 0.66rem; color: var(--accent-cyan); margin-top: 3px; letter-spacing: 0.05em; }
+
+.hud-nav {
+  display: flex; gap: 5px; flex-wrap: wrap;
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: var(--radius); padding: 5px;
+  backdrop-filter: blur(18px);
+}
+.hud-nav button {
+  font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.04em;
+  color: var(--text-dim); padding: 7px 12px; border-radius: 9px;
+  border: 1px solid transparent; transition: all 0.2s;
+  display: flex; align-items: center; gap: 5px;
+}
+.hud-nav button .dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; opacity: 0.5; }
+.hud-nav button:hover { color: var(--text-primary); border-color: var(--panel-border); }
+.hud-nav button.active { background: var(--zc,var(--accent-cyan)); color: #060a12; border-color: transparent; font-weight: 600; }
+.hud-nav button.active .dot { opacity: 1; }
+
+/* orbit toggle */
+.orbit-toggle {
+  font-family: var(--font-mono); font-size: 0.66rem;
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: 8px; padding: 6px 12px; color: var(--text-dim);
+  backdrop-filter: blur(16px); transition: all 0.2s;
+}
+.orbit-toggle:hover { color: var(--accent-cyan); border-color: var(--accent-cyan); }
+.orbit-toggle.on { color: var(--accent-cyan); border-color: var(--accent-cyan); }
+
+/* ── Mini panel bottom-right ── */
+.mini-panel {
+  align-self: flex-end; width: min(360px, 100%);
+  background: var(--panel); border: 1px solid var(--panel-border);
+  border-radius: var(--radius); padding: 18px 20px;
+  backdrop-filter: blur(18px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.45);
+}
+.mini-panel .zone-eyebrow { font-family: var(--font-mono); font-size: 0.65rem; letter-spacing: 0.12em; text-transform: uppercase; color: var(--zc,var(--accent-cyan)); margin-bottom: 5px; }
+.mini-panel h3 { font-family: var(--font-display); font-size: 1.1rem; font-weight: 600; margin-bottom: 7px; }
+.mini-panel p { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 12px; }
+.mini-panel .open-btn {
+  font-family: var(--font-mono); font-size: 0.72rem;
+  background: var(--zc,var(--accent-cyan)); color: #060a12;
+  border: none; padding: 8px 16px; border-radius: 8px;
+  cursor: pointer; font-weight: 600; transition: filter 0.2s;
+  display: inline-flex; align-items: center; gap: 6px;
+}
+.mini-panel .open-btn:hover { filter: brightness(1.12); }
+
+/* ── Intro ── */
+.intro {
+  position: fixed; inset: 0; z-index: 50;
+  background: radial-gradient(ellipse at 50% 55%, #0c1a2e 0%, #060a12 70%);
+  display: flex; flex-direction: column; align-items: center;
+  justify-content: center; text-align: center; gap: 18px; padding: 28px;
+}
+.intro .mono-tag { font-family: var(--font-mono); font-size: 0.7rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent-cyan); }
+.intro h1 { font-family: var(--font-display); font-size: clamp(1.9rem,5vw,3rem); font-weight: 700; line-height: 1.15; }
+.intro h1 span { color: var(--accent-cyan); }
+.intro p { color: var(--text-dim); font-size: 0.92rem; max-width: 460px; line-height: 1.65; }
+.intro .hint { font-family: var(--font-mono); font-size: 0.68rem; color: var(--text-dim); letter-spacing: 0.06em; }
+
+@media (max-width:720px) {
+  .ui-layer { padding: 12px; }
+  .hud { flex-direction: column; }
+  .hud-id { max-width: none; }
+  .hud-nav { overflow-x: auto; }
+  .mini-panel { width: 100%; }
+}

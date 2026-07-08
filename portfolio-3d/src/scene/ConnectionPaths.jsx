@@ -10,19 +10,18 @@ export default function ConnectionPaths({ zones, activeZone }) {
     const start = new THREE.Vector3(...home.position);
     const end = new THREE.Vector3(...zone.position);
     const mid = start.clone().lerp(end, 0.5);
-    mid.y += 1.8;
-    const curve = new THREE.QuadraticBezierCurve3(start, mid, end);
-    return { id: zone.id, color: zone.color, points: curve.getPoints(28) };
+    mid.y += 2.2;
+    return { id: zone.id, color: zone.color, points: new THREE.QuadraticBezierCurve3(start, mid, end).getPoints(32) };
   }), [home, others]);
 
   return (
     <group>
-      {paths.map((path) => {
-        const active = activeZone === path.id || activeZone === "home";
+      {paths.map((p) => {
+        const active = activeZone === p.id || activeZone === "home";
         return (
-          <Line key={path.id} points={path.points} color={path.color}
-            lineWidth={active ? 2.2 : 0.8} transparent opacity={active ? 0.6 : 0.15}
-            dashed dashScale={3} dashSize={0.55} gapSize={0.45}
+          <Line key={p.id} points={p.points} color={p.color}
+            lineWidth={active ? 2.5 : 0.8} transparent opacity={active ? 0.65 : 0.15}
+            dashed dashScale={3} dashSize={0.6} gapSize={0.4}
           />
         );
       })}

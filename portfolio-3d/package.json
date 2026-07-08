@@ -1,5 +1,5 @@
 {
-  "name": "portfolio-3d",
+  "name": "portfolio",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -14,6 +14,7 @@
     "@react-three/fiber": "^9.6.1",
     "react": "^19.2.7",
     "react-dom": "^19.2.7",
+    "react-router-dom": "^7.18.1",
     "three": "^0.185.1"
   },
   "devDependencies": {
